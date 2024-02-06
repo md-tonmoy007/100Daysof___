@@ -1,10 +1,19 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { delay } from "./utils/delay";
+
+const LoadToast = () =>{
+  try {
+    toast.success("Welcome to the sign up page")
+  } catch (error) {
+    console.log(error)
+  }
+}
 
 const Signup = () => {
-  const [responseData, setResponseData] = useState(null);
-  const [responseError, setResponseError] = useState("");
+  // const [responseData, setResponseData] = useState(null);
+  // const [responseError, setResponseError] = useState("");
 
   const [formData, setFormData] = useState({
     email: "",
@@ -12,6 +21,8 @@ const Signup = () => {
     password1: "",
     password2: "",
   });
+
+
   // tel, dal, lobon, dim
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -27,18 +38,17 @@ const Signup = () => {
         formData
       );
       console.log(response.data);
-      setResponseData(response.data);
-      console.log(response.data.status);
-      // console.log(JSON.stringify(response.data.messages))
 
-      if (responseData && response.data.status === "success") {
-        window.location.href = "/";
+
+      if (response.data.status === "success") {
+        toast.success("we have sent you a verification mail")
+        await delay(2000)
+        window.location.href = "/signin";
       } else {
         console.log("hello");
 
         console.log(response.data.messages);
-        setResponseError(response.data.messages);
-        toast.error(responseError);
+        toast.error(response.data.messages);
       }
     } catch (error) {
       console.error("Signup failed:", error);
@@ -47,7 +57,7 @@ const Signup = () => {
   };
 
   return (
-    <div className="bg-gray-50 dark:bg-gray-900">
+    <div onLoad={LoadToast} className="bg-gray-50 dark:bg-gray-900">
       {/* <h2 className="text-3xl font-bold text-red-500">Signup</h2>
       <form onSubmit={handleSubmit}>
         <label>Email:</label>
@@ -160,7 +170,7 @@ const Signup = () => {
                 <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                   Already have an account?{" "}
                   <a
-                    href="/"
+                    href="/signin"
                     className="font-medium text-primary-600 hover:underline dark:text-primary-500"
                   >
                     Login here

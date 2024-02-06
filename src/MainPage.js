@@ -6,14 +6,16 @@ const MainPage = () => {
 
   useEffect(() => {
     const fetchUserData = async () => {
+      console.log(localStorage.getItem('token'))
       try {
         const response = await axios.get('http://localhost:8000/api/me/', {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
           },
         });
         setUserData(response.data);
       } catch (error) {
+        
         console.error('Error fetching user data:', error);
       }
     };
@@ -24,15 +26,20 @@ const MainPage = () => {
   const logout = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.get('http://localhost:8000/api/logout/', {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
-      });
-      setUserData(response.data);
-    } catch (error) {
-      console.error('Error fetching user data:', error);
-    }
+      const response = await axios.post(
+          'http://localhost:8000/api/logout/',
+          { refresh: localStorage.getItem('refreshToken') }
+      );
+      if (response.status === 205) {
+          // Clear tokens from local storage or state
+          localStorage.removeItem('accessToken');
+          localStorage.removeItem('refreshToken');
+          // Redirect to login or homepage
+          window.location.href = '/signin'; // Redirect to login page
+      }
+  } catch (error) {
+      console.error('Logout failed:', error);
+  }
     
     
 
