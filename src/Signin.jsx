@@ -16,7 +16,7 @@ const Signin = () => {
     password: '',
   });
   // const [error, setError] = useState(null);
-
+ 
   useEffect(() => {
     // JavaScript code to be executed when the component mounts
     toast.success('Welcome please sign in!');
@@ -117,6 +117,14 @@ const Signin = () => {
               className="font-medium text-primary-600 hover:underline dark:text-primary-500"
             >
               Register here
+            </a>
+          </p>
+          <p className="text-sm font-light text-gray-500 dark:text-gray-400">
+            <a
+              href="/request-reset-password"
+              className="font-medium text-primary-600 hover:underline dark:text-primary-500"
+            >
+              forgot password?
             </a>
           </p>
         </form>
