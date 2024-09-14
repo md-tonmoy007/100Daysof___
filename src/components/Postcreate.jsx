@@ -1,80 +1,71 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-function Postcreate() {
-  const [content, setContent] = useState('');
-  // const [attachment, setAttachment] = useState(null);
+const PostCreate = () => {
+  const [body, setBody] = useState('');
+  const [message, setMessage] = useState('');
 
-
-
-  const handleContentChange = (e) => {
-    setContent(e.target.value);
+  const handleChange = (e) => {
+    setBody(e.target.value);
+    console.log(body)
   };
-
-  // const handleAttachmentChange = (e) => {
-  //   setAttachment(e.target.files[0]);
-  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const formData = new FormData();
-    formData.append('body', content);
-    // formData.append('attachment', attachment);
+    // Retrieve the token from local storage
+    const token = localStorage.getItem('accessToken');
+
+    if (!token) {
+      setMessage('No token found. Please log in.');
+      return;
+    }
 
     try {
-      const response = await axios.post('http://localhost:8000/api/posts/create/', formData, {
-        headers: {
-           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-      window.location.reload();
+      const response = await axios.post('http://localhost:8000/api/posts/create/', 
+        { body },
+        {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+        }
+      );
+      setMessage('Post created successfully!');
+      setBody('');
     } catch (error) {
-      console.error('Error creating post:', error);
+      console.error(error);
+      setMessage('Error creating post.');
     }
   };
 
   return (
-    <div className=''>
-      <h2 className='flex w-full justify-center text-3xl'>Create Post</h2>
-      <form onSubmit={handleSubmit}>
-
-        <div className='grid grid-cols-1 gap-4'>
-          <label htmlFor="content">Content:</label>
-          <textarea
-            id="content"
-            value={content}
-            rows={10}
-            cols={20}
-            onChange={handleContentChange}
-            className='text-black'
-          ></textarea>
-        </div>
-        {/* <div>
-          <label htmlFor="attachment">Attachment:</label>
-          <input
-            type="file"
-            id="attachment"
-            accept="image/*" 
-            onChange={handleAttachmentChange}
-          />
-        </div> */}
-        <div className='flex w-full justify-center'>
-          <button type="submit" className='border m-3 px-3 py-1 bg-slate-700 '>
+    <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+      <div className="bg-white p-6 rounded-lg shadow-lg">
+        <h1 className="text-2xl font-bold mb-4">Create a Post</h1>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-700">
+              Post Body
+            </label>
+            <textarea
+              value={body}
+              onChange={handleChange}
+              className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+              rows="4"
+              placeholder="Write your post here..."
+            />
+          </div>
+          <button
+            type="submit"
+            className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600"
+          >
             Submit
           </button>
-        </div>
-      </form>
-      {/* Display attachment preview if available */}
-      {/* {attachment && (
-        <div>
-          <h3>Attachment Preview:</h3>
-          <img src={URL.createObjectURL(attachment)} alt="Attachment Preview" />
-        </div>
-      )} */}
+        </form>
+        {message && <p className="mt-4 text-center text-red-500">{message}</p>}
+      </div>
     </div>
   );
-}
+};
 
-export default Postcreate;
+export default PostCreate;
