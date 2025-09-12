@@ -54,85 +54,60 @@ const Signin = () => {
   };
 
   return (
-    <div onLoad={LoadToast}>
-     <section className="bg-gray-50 dark:bg-gray-900 mb-auto">
-  <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-    <a
-      href="/main"
-      className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white"
-    >
-      #100DaysOf__
-    </a>
-    <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-      <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-        <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-          Login
-        </h1>
-        <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
-        
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 via-white to-purple-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+      <div className="w-full max-w-md p-8 rounded-3xl shadow-2xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800">
+        <div className="flex flex-col items-center mb-8">
+          <a href="/main" className="flex items-center gap-2 text-3xl font-extrabold text-blue-700 dark:text-blue-300 tracking-tight">
+            <svg width="36" height="36" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="text-blue-500 dark:text-blue-400"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" /></svg>
+            #100DaysOf__
+          </a>
+          <h1 className="mt-4 text-2xl font-bold text-gray-900 dark:text-white">Sign in to your account</h1>
+          <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">Welcome back! Please enter your details.</p>
+        </div>
+        <form className="space-y-6" onSubmit={handleSubmit}>
           <div>
-            <label
-              htmlFor="email"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >
-              Your email
-            </label>
+            <label htmlFor="email" className="block mb-2 text-sm font-semibold text-gray-700 dark:text-gray-200">Email</label>
             <input
               type="email"
               name="email"
               id="email"
-              className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="name@company.com"
-              value={formData.email} onChange={handleChange} required
+              className="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-400 focus:outline-none transition"
+              placeholder="you@email.com"
+              value={formData.email}
+              onChange={handleChange}
+              required
+              autoComplete="email"
             />
           </div>
           <div>
-            <label
-              htmlFor="password"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >
-              Password
-            </label>
+            <label htmlFor="password" className="block mb-2 text-sm font-semibold text-gray-700 dark:text-gray-200">Password</label>
             <input
               type="password"
               name="password"
               id="password"
-              placeholder="************"
-              className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              value={formData.password1} onChange={handleChange} required
+              className="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-400 focus:outline-none transition"
+              placeholder="********"
+              value={formData.password}
+              onChange={handleChange}
+              required
+              autoComplete="current-password"
             />
           </div>
-          
-
+          <div className="flex items-center justify-between">
+            <a href="/request-reset-password" className="text-sm text-blue-600 dark:text-blue-400 hover:underline">Forgot password?</a>
+          </div>
           <button
             type="submit"
-            className="w-full text-white bg-blue-500 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+            className="w-full py-3 mt-2 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-bold rounded-xl shadow-lg transition focus:outline-none focus:ring-2 focus:ring-blue-400"
           >
-            Login
+            Sign In
           </button>
-          <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-            Don't have an account?{" "}
-            <a
-              href="/signup"
-              className="font-medium text-primary-600 hover:underline dark:text-primary-500"
-            >
-              Register here
-            </a>
-          </p>
-          <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-            <a
-              href="/request-reset-password"
-              className="font-medium text-primary-600 hover:underline dark:text-primary-500"
-            >
-              forgot password?
-            </a>
-          </p>
         </form>
+        <div className="mt-8 text-center">
+          <span className="text-gray-500 dark:text-gray-400 text-sm">Don't have an account? </span>
+          <a href="/signup" className="text-blue-600 dark:text-blue-400 font-semibold hover:underline">Register here</a>
+        </div>
       </div>
-    </div>
-  </div>
-  
-</section>
     </div>
   );
 };

@@ -3,6 +3,24 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
 function ProfilePage() {
+  // Cancel friend request handler
+  const handleCancelRequest = async (e) => {
+    if (e && e.preventDefault) e.preventDefault();
+    try {
+      await axios.post(
+        `http://localhost:8000/api/friends/${userId}/cancel/`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      );
+      window.location.reload();
+    } catch (error) {
+      console.error("Cancel request failed", error);
+    }
+  };
   const { userId } = useParams();
   const [userposts, setUserposts] = useState([]);
   const [userDetail, setUserDetail] = useState([]);
@@ -106,113 +124,129 @@ function ProfilePage() {
         console.error(err);
       });
   }
-  return (
-    <div className="w-[70%] p-10 pb-40 ml-[15%] flex items-center justify-center bg-white text-gray-900">
-      <div className="">
-        <div className="mb-3">
-          <img
-            src={
-              userDetail.avatar
-                ? `http://localhost:8000${userDetail.avatar}`
-                : userDetail.get_avatar
-            }
-            alt=""
-            className="w-[300px] h-[300px] rounded-full object-cover"
-          />
-          <h1> name : {userDetail.name} </h1>
-          <p> email: {userDetail.email} </p>
-        </div>
-        {myProfile && (
-          <div className="flex gap-10">
-            <button
-              onClick={logout}
-              className="focus:outline-none text-white  focus:ring-4  font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 bg-red-600 hover:bg-red-700 focus:ring-red-900"
-            >
-              Log out
-            </button>
-            <Link to="/profile/edit">
-              <button
-                href="/profile/edit"
-                className="text-white focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-blue-800"
-              >
-                edit profile
-              </button>
-            </Link>
-          </div>
-        )}
 
-        {!myProfile && status === "Add friend" ? (
-          <Link>
-            <button
-              onClick={handleSendRequest}
-              className="text-white w-[80%] focus:ring-4 font-medium m-3 rounded-lg text-sm px-5 py-2.5 me-2 mb-2 bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-blue-800"
-              href="/edit/profile"
-            >
-              {status}
-            </button>
-          </Link>
-        ) : !myProfile && status === "Accept request" ? (
-          <div>
-            
+// ...existing code...
 
-            <button
-              onClick={() => handleFriendRequest('accepted')}
-              className="text-white w-[80%] focus:ring-4 font-medium m-3 rounded-lg text-sm px-5 py-2.5 me-2 mb-2 bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-blue-800"
-              href="/edit/profile"
-            >
-              <Link> Accept </Link>
-            </button>
-
-            <button
-              onClick={() => handleFriendRequest('rejected')}
-              className="text-white w-[80%] focus:ring-4 font-medium m-3 rounded-lg text-sm px-5 py-2.5 me-2 mb-2 bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-red-800"
-            >
-              Reject
-            </button>
-          </div>
-        ) : !myProfile && status === "Request sent" ? (
-          <div>
-            <button
-              className="text-white w-[80%] focus:ring-4 font-medium m-3 rounded-lg text-sm px-5 py-2.5 me-2 mb-2 bg-blue-900"
-              href="/edit/profile"
-            >
-              <Link> {status} </Link>
-            </button>
-          </div>
-        ) : (
-          !myProfile && status === "Friends" ? (
-            <div>
-            <button
-              className="text-white w-[80%] focus:ring-4 font-medium m-3 rounded-lg text-sm px-5 py-2.5 me-2 mb-2 bg-blue-900"
-              href="/edit/profile"
-            >
-              friends
-            </button>
-          </div>
-          ): "loading"
-        )}
-
-        <div className="mt-3">
-          {userposts.map((post) => (
-            <div
-              key={post.id}
-              className="grid grid-cols-1 border mb-3 py-2 px-1"
-            >
-              <div className="flex justify-between border-b border-slate-400 p-3">
-                {myProfile && (
-                  <button onClick={() => onDelete(post)}>Delete</button>
-                )}
-                <p className="text-xs">{post.created_at_formatted}</p>
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-100 flex justify-center items-start py-12">
+        <div className="w-full max-w-3xl bg-white rounded-3xl shadow-2xl p-8 mt-8">
+          <div className="flex flex-col md:flex-row items-center md:items-start gap-8">
+            <div className="flex flex-col items-center w-full md:w-1/3">
+              <div className="relative">
+                <img
+                  src={userDetail.avatar ? `http://localhost:8000${userDetail.avatar}` : userDetail.get_avatar}
+                  alt="avatar"
+                  className="w-40 h-40 rounded-full object-cover border-4 border-blue-300 shadow-lg"
+                />
+                <span className="absolute bottom-2 right-2 bg-green-400 w-5 h-5 rounded-full border-2 border-white"></span>
               </div>
-              <div className="p-3 text-sm">
-                <p>{post.body}</p>
+              <h2 className="mt-4 text-2xl font-bold text-gray-800">{userDetail.name}</h2>
+              <p className="text-gray-500">{userDetail.email}</p>
+              <div className="mt-4 w-full flex flex-col gap-2">
+                {myProfile ? (
+                  <>
+                    <button
+                      onClick={logout}
+                      className="w-full bg-red-500 hover:bg-red-600 text-white font-semibold py-2 rounded-lg shadow"
+                    >
+                      Log out
+                    </button>
+                    <Link to="/profile/edit">
+                      <button className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 rounded-lg shadow">
+                        Edit Profile
+                      </button>
+                    </Link>
+                  </>
+                ) : (
+                  <>
+                    {status === "add friend" && (
+                      <button
+                        onClick={handleSendRequest}
+                        className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 rounded-lg shadow"
+                      >
+                        Add Friend
+                      </button>
+                    )}
+                    {status === "Accept request" && (
+                      <div className="flex flex-col gap-2">
+                        <button
+                          onClick={() => handleFriendRequest('accepted')}
+                          className="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-2 rounded-lg shadow"
+                        >
+                          Accept Request
+                        </button>
+                        <button
+                          onClick={() => handleFriendRequest('rejected')}
+                          className="w-full bg-red-400 hover:bg-red-500 text-white font-semibold py-2 rounded-lg shadow"
+                        >
+                          Reject
+                        </button>
+                      </div>
+                    )}
+                    {status === "Request sent" && (
+                      <div className="flex flex-col gap-2">
+                        <button
+                          className="w-full bg-gray-400 text-white font-semibold py-2 rounded-lg shadow cursor-not-allowed"
+                          disabled
+                        >
+                          Request Sent
+                        </button>
+                        <button
+                          onClick={handleCancelRequest}
+                          className="w-full bg-red-400 hover:bg-red-500 text-white font-semibold py-2 rounded-lg shadow"
+                        >
+                          Cancel Request
+                        </button>
+                      </div>
+                    )}
+// ...existing code...
+                    {status === "Friends" && (
+                      <button
+                        className="w-full bg-emerald-500 text-white font-semibold py-2 rounded-lg shadow cursor-default"
+                        disabled
+                      >
+                        Friends
+                      </button>
+                    )}
+                  </>
+                )}
               </div>
             </div>
-          ))}
+            <div className="flex-1 w-full">
+              <h3 className="text-xl font-semibold text-gray-700 mb-4 border-b pb-2">Posts</h3>
+              <div className="space-y-4">
+                {userposts.length === 0 ? (
+                  <div className="text-gray-400 text-center">No posts yet.</div>
+                ) : (
+                  userposts.map((post) => (
+                    <Link key={post.id} to={`/posts/details/${post.id}`} className="block group">
+                      <div
+                        className="bg-gray-50 rounded-xl shadow p-4 border border-gray-200 relative group-hover:bg-blue-50 transition"
+                      >
+                        <div className="flex justify-between items-center mb-2">
+                          <span className="text-xs text-gray-400">{post.created_at_formatted}</span>
+                          {myProfile && (
+                            <button
+                              onClick={e => { e.preventDefault(); onDelete(post); }}
+                              className="text-xs text-red-500 hover:underline"
+                            >
+                              Delete
+                            </button>
+                          )}
+                        </div>
+                        <div className="text-gray-700 text-sm line-clamp-3 group-hover:underline">
+                          {post.body}
+                        </div>
+                      </div>
+                    </Link>
+                  ))
+                )}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
 }
 
 export default ProfilePage;

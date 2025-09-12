@@ -18,7 +18,16 @@ const Navigation = () => {
 
   const handleSearch = async (e) => {
      e.preventDefault();
-     window.location.href = `/search/${query}`
+     
+     // Trim whitespace and check if query is empty
+     const trimmedQuery = query.trim();
+     
+     if (!trimmedQuery) {
+       // Don't search if query is empty or only whitespace
+       return;
+     }
+     
+     window.location.href = `/search/${encodeURIComponent(trimmedQuery)}`
     }
 
   useEffect(()=>{
@@ -51,67 +60,89 @@ const Navigation = () => {
       }
     }
     return (
-        <div className="bg-white border-b border-slate-600 shadow-sm sticky top-0 z-40 mb-[50px]">
-        <header className="flex justify-between items-center px-3 max-w-6xl mx-auto">
+        <div className="bg-gradient-to-br from-indigo-100 via-purple-50 to-pink-100 border-b border-white/30 shadow-lg backdrop-blur-sm sticky top-0 z-40">
+        <header className="flex justify-between items-center px-6 max-w-6xl mx-auto py-4">
           <div>
-            <img
-              src="https://static.rdc.moveaws.com/images/logos/rdc-logo-default.svg"
-              alt="logo"
-              className="h-5 cursor-pointer"
+            <span
+              className="text-3xl font-extrabold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent tracking-tight cursor-pointer select-none hover:scale-105 transition-transform"
               onClick={() => navigate("/")}
-            />
+            >
+              #100DaysOf__
+            </span>
           </div>
+          
           <div>
-            <form onSubmit={handleSearch}>
+            <form onSubmit={handleSearch} className="flex items-center gap-2">
               <input
                 type="text"
-                placeholder="Search"
+                placeholder="Search users, posts..."
                 onChange={handleChange}
-                className="m-3 border text-black bg-gray-300 border-gray-500 rounded-lg px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="px-4 py-2 bg-white/70 backdrop-blur-sm border border-white/30 rounded-full text-gray-700 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all w-64"
               />
-              <input type='submit' value='search' className="bg-slate-500 px-4 py-1 rounded-lg"/>
+              <button 
+                type='submit' 
+                disabled={!query.trim()}
+                className={`px-6 py-2 rounded-full font-medium transition-all duration-200 shadow-lg hover:shadow-xl ${
+                  query.trim() 
+                    ? 'bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white' 
+                    : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                }`}
+              >
+                Search
+              </button>
             </form>
           </div>
+          
           <div>
-            <ul className="flex space-x-10">
+            <ul className="flex items-center space-x-8">
               <li
-                style={pathMatchRoute("/")?{borderBottom: "5px red solid", color: "black"}: {borderBottom: "transparent"}}
-                className={`cursor-pointer py-3 text-sm font-semibold text-gray-400 border-b-[3px] border-b-transparent ${
-                  pathMatchRoute("/") && "text-white border-b-red-500"
+                className={`cursor-pointer py-2 px-4 text-sm font-semibold rounded-full transition-all duration-200 ${
+                  pathMatchRoute("/") 
+                    ? "bg-white/70 text-purple-700 shadow-md backdrop-blur-sm" 
+                    : "text-gray-600 hover:text-purple-600 hover:bg-white/30"
                 }`}
                 onClick={() => navigate("/")}
               >
-                Homies
+                🏠 Home
               </li>
               <li
-                style={pathMatchRoute("/friends")?{borderBottom: "5px red solid", color:"black"}: {borderBottom: "transparent"}}
-                className={`cursor-pointer py-3 text-sm font-semibold text-gray-400 border-b-[3px] border-b-transparent`}
+                className={`cursor-pointer py-2 px-4 text-sm font-semibold rounded-full transition-all duration-200 ${
+                  pathMatchRoute("/friends") 
+                    ? "bg-white/70 text-purple-700 shadow-md backdrop-blur-sm" 
+                    : "text-gray-600 hover:text-purple-600 hover:bg-white/30"
+                }`}
                 onClick={() => navigate("/friends")}
               >
-                friends
+                👥 Friends
               </li>
               
               {
-                id !== ""?
+                id !== "" ?
                 <li
-              style={pathMatchRoute(`/profile/${id}`)?{borderBottom: "5px red solid", color:"white"}: {borderBottom: "transparent"}}
-                className={`cursor-pointer py-3 text-sm font-semibold text-gray-400 border-b-[3px] border-b-transparent 
-                ${pathMatchRoute("/signin") && "text-white border-b-red-500"}`}
-                onClick={() => navigate(`/profile/${id}`)}
-              >
-                <img 
-      src={userDetail.avatar?`http://localhost:8000${userDetail.avatar}`:userDetail.get_avatar} alt="" 
-      className="w-[40px] h-[40px] rounded-full object-cover"/>
-              </li>
-              :
-              <li
-              style={pathMatchRoute("/signin")?{borderBottom: "5px red solid", color:"white"}: {borderBottom: "transparent"}}
-                className={`cursor-pointer py-3 text-sm font-semibold text-gray-400 border-b-[3px] border-b-transparent 
-                ${pathMatchRoute("/signin") && "text-white border-b-red-500"}`}
-                onClick={() => navigate("/signin")}
-              >
-                signin
-              </li>
+                  className={`cursor-pointer p-1 rounded-full transition-all duration-200 ${
+                    pathMatchRoute(`/profile/${id}`) 
+                      ? "ring-2 ring-purple-500 shadow-lg" 
+                      : "hover:ring-2 hover:ring-purple-300"
+                  }`}
+                  onClick={() => navigate(`/profile/${id}`)}
+                >
+                  <img 
+                    src={userDetail.avatar ? `http://localhost:8000${userDetail.avatar}` : userDetail.get_avatar} 
+                    alt="Profile" 
+                    className="w-10 h-10 rounded-full object-cover border-2 border-white shadow-md"
+                  />
+                </li>
+                :
+                <li
+                  className={`cursor-pointer py-2 px-4 text-sm font-semibold rounded-full transition-all duration-200 ${
+                    pathMatchRoute("/signin") 
+                      ? "bg-white/70 text-purple-700 shadow-md backdrop-blur-sm" 
+                      : "text-gray-600 hover:text-purple-600 hover:bg-white/30"
+                  }`}
+                  onClick={() => navigate("/signin")}
+                >
+                  🔐 Sign In
+                </li>
               }
             </ul>
         </div>

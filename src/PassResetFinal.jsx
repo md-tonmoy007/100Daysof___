@@ -48,9 +48,6 @@ function PassResetFinal() {
 
   return (
     <div>
-      <h2>Password Reset Page</h2>
-      <p>uidb64: {uidb64}</p>
-      <p>token: {token}</p>
       {/* Your component logic here */}
       <div>
         <section className="bg-gray-50 dark:bg-gray-900 mb-auto">

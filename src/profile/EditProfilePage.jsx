@@ -14,26 +14,27 @@ const EditProfilePage = () => {
   });
   const fileInputRef = useRef(null);
 
+
   useEffect(() => {
     const fetchUserData = async () => {
-      console.log(localStorage.getItem("accessToken"));
       try {
         const response = await axios.get("http://localhost:8000/api/me/", {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
           },
         });
-        setUserData(response.data);
-        console.log(response.data);
-        formData.email = response.data.email;
-        formData.name = response.data.name;
+        // The user data is under response.data.user
+        setUserData(response.data.user);
+        setFormData({
+          email: response.data.user.email || "",
+          name: response.data.user.name || "",
+        });
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
     };
-
     fetchUserData();
-  }, [formData]);
+  }, []);
 
   console.log(formData);
 
@@ -79,62 +80,59 @@ const EditProfilePage = () => {
   };
 
   return (
-    <div className="w-[80%] flex justify-center">
-      <form className="space-y-4 md:space-y-6 w-full" onSubmit={handleSubmit}>
-        <div>
-          <label
-            htmlFor="name"
-            className="block mb-2 text-sm font-medium text-black"
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-purple-100 py-12">
+      <div className="w-full max-w-lg bg-white rounded-3xl shadow-2xl p-8">
+        <h2 className="text-2xl font-bold text-center mb-6 text-gray-800">Edit Profile</h2>
+        <form className="space-y-6" onSubmit={handleSubmit}>
+          <div className="flex flex-col items-center mb-4">
+            <div className="relative w-28 h-28 mb-2">
+              <img
+                src={userData.avatar ? `http://localhost:8000${userData.avatar}` : userData.get_avatar}
+                alt="avatar"
+                className="w-28 h-28 rounded-full object-cover border-4 border-blue-300 shadow-lg"
+              />
+              <input
+                type="file"
+                ref={fileInputRef}
+                className="absolute bottom-0 right-0 w-8 h-8 opacity-0 cursor-pointer"
+                title="Change avatar"
+              />
+              <span className="absolute bottom-0 right-0 bg-blue-500 text-white rounded-full p-1 text-xs shadow">Edit</span>
+            </div>
+          </div>
+          <div>
+            <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-700">User Name</label>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              className="bg-white border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+              placeholder="Enter your name"
+              value={formData.name}
+              onChange={handleChange}
+            />
+          </div>
+          <div>
+            <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-700">Your Email</label>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+              placeholder="Enter your email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <button
+            type="submit"
+            className="w-full text-white bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
           >
-            User Name
-          </label>
-          <input
-            type="text"
-            name="name"
-            id="name"
-            className="bg-white border border-gray-300 text-gray-900 sm:text-sm rounded-lg
-             focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5
-              placeholder-gray-400  focus:ring-blue-500 focus:border-blue-500"
-            placeholder={userData.name}
-            value={formData.name}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label
-            htmlFor="email"
-            className="block mb-2 text-sm font-medium text-gray-900 "
-          >
-            Your email
-          </label>
-          <input
-            type="email"
-            name="email"
-            id="email"
-            className="bg-gray-50 border border-gray-300 text-gray-900 
-            sm:text-sm rounded-lg focus:ring-primary-600 
-            focus:border-primary-600 block w-full p-2.5  placeholder-gray-400
-              focus:ring-blue-500 focus:border-blue-500"
-            placeholder=""
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-        <div>
-          <label>Avatar</label>
-          <br />
-          <input type="file" ref={fileInputRef} />
-        </div>
-
-        <button
-          type="submit"
-          className="w-full text-white bg-blue-500 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-primary-600 hover:bg-primary-700 focus:ring-primary-800"
-        >
-          Save
-        </button>
-      </form>
+            Save Changes
+          </button>
+        </form>
+      </div>
     </div>
   );
 };
