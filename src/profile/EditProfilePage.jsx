@@ -80,16 +80,16 @@ const EditProfilePage = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-purple-100 py-12">
-      <div className="w-full max-w-lg bg-white rounded-3xl shadow-2xl p-8">
-        <h2 className="text-2xl font-bold text-center mb-6 text-gray-800">Edit Profile</h2>
+    <div className="min-h-screen flex items-center justify-center bg-twitter-background py-12">
+      <div className="w-full max-w-lg bg-twitter-surface border border-twitter-border rounded-3xl shadow-2xl p-8">
+        <h2 className="text-2xl font-bold text-center mb-6 text-twitter-text">Edit Profile</h2>
         <form className="space-y-6" onSubmit={handleSubmit}>
           <div className="flex flex-col items-center mb-4">
             <div className="relative w-28 h-28 mb-2">
               <img
                 src={userData.avatar ? `http://localhost:8000${userData.avatar}` : userData.get_avatar}
                 alt="avatar"
-                className="w-28 h-28 rounded-full object-cover border-4 border-blue-300 shadow-lg"
+                className="w-28 h-28 rounded-full object-cover border-4 border-twitter-border shadow-lg"
               />
               <input
                 type="file"
@@ -97,28 +97,28 @@ const EditProfilePage = () => {
                 className="absolute bottom-0 right-0 w-8 h-8 opacity-0 cursor-pointer"
                 title="Change avatar"
               />
-              <span className="absolute bottom-0 right-0 bg-blue-500 text-white rounded-full p-1 text-xs shadow">Edit</span>
+              <span className="absolute bottom-0 right-0 bg-twitter-primary text-white rounded-full p-1 text-xs shadow">Edit</span>
             </div>
           </div>
           <div>
-            <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-700">User Name</label>
+            <label htmlFor="name" className="block mb-2 text-sm font-medium text-twitter-text">User Name</label>
             <input
               type="text"
               name="name"
               id="name"
-              className="bg-white border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+              className="bg-twitter-backgroundSecondary border border-twitter-border text-twitter-text sm:text-sm rounded-lg focus:ring-twitter-primary focus:border-twitter-primary block w-full p-2.5"
               placeholder="Enter your name"
               value={formData.name}
               onChange={handleChange}
             />
           </div>
           <div>
-            <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-700">Your Email</label>
+            <label htmlFor="email" className="block mb-2 text-sm font-medium text-twitter-text">Your Email</label>
             <input
               type="email"
               name="email"
               id="email"
-              className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+              className="bg-twitter-backgroundSecondary border border-twitter-border text-twitter-text sm:text-sm rounded-lg focus:ring-twitter-primary focus:border-twitter-primary block w-full p-2.5"
               placeholder="Enter your email"
               value={formData.email}
               onChange={handleChange}
@@ -127,7 +127,7 @@ const EditProfilePage = () => {
           </div>
           <button
             type="submit"
-            className="w-full text-white bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+            className="w-full text-white bg-twitter-primary hover:bg-twitter-primary/90 focus:ring-4 focus:outline-none focus:ring-twitter-primary/30 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
           >
             Save Changes
           </button>

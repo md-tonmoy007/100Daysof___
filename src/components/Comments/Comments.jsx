@@ -30,17 +30,17 @@ function Comments(comment) {
   if (loading) {
     return (
       <div className="animate-pulse flex items-center gap-3 p-4">
-        <div className="w-10 h-10 bg-gray-300 rounded-full"></div>
+        <div className="w-10 h-10 bg-twitter-border rounded-full"></div>
         <div className="flex-1">
-          <div className="h-3 bg-gray-300 rounded w-20 mb-2"></div>
-          <div className="h-4 bg-gray-300 rounded w-full"></div>
+          <div className="h-3 bg-twitter-border rounded w-20 mb-2"></div>
+          <div className="h-4 bg-twitter-border rounded w-full"></div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="bg-white/30 backdrop-blur-sm rounded-xl p-4 border border-white/20 hover:bg-white/40 transition-all duration-200">
+    <div className="bg-twitter-surface border border-twitter-border rounded-xl p-4 hover:bg-twitter-backgroundSecondary transition-all duration-200">
       <div className="flex items-start gap-3">
         <Link to={`/profile/${user.id}`} className="flex-shrink-0 group">
           <div className="relative">
@@ -51,9 +51,9 @@ function Comments(comment) {
                   : user.get_avatar
               }
               alt={user.name}
-              className="w-10 h-10 rounded-full object-cover border-2 border-white/40 shadow-sm group-hover:scale-105 transition-transform duration-200"
+              className="w-10 h-10 rounded-full object-cover border-2 border-twitter-border shadow-sm group-hover:scale-105 transition-transform duration-200"
             />
-            <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-400 rounded-full border border-white shadow-sm"></div>
+            <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-twitter-success rounded-full border border-twitter-surface shadow-sm"></div>
           </div>
         </Link>
         
@@ -61,18 +61,18 @@ function Comments(comment) {
           <div className="flex items-center gap-2 mb-2">
             <Link 
               to={`/profile/${user.id}`}
-              className="font-semibold text-sm text-gray-800 hover:text-purple-600 transition-colors duration-200"
+              className="font-semibold text-sm text-twitter-text hover:text-twitter-primary transition-colors duration-200"
             >
               {user.name}
             </Link>
-            <span className="text-xs text-gray-500">•</span>
-            <span className="text-xs text-gray-500">
+            <span className="text-xs text-twitter-textSecondary">•</span>
+            <span className="text-xs text-twitter-textSecondary">
               @{user.name?.toLowerCase().replace(/\s+/g, '')}
             </span>
           </div>
           
-          <div className="bg-white/50 backdrop-blur-sm rounded-lg p-3 border border-white/30">
-            <p className="text-gray-800 text-sm leading-relaxed break-words">
+          <div className="bg-twitter-backgroundSecondary border border-twitter-border rounded-lg p-3">
+            <p className="text-twitter-text text-sm leading-relaxed break-words">
               {comments.body}
             </p>
           </div>
