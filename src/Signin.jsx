@@ -54,24 +54,26 @@ const Signin = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 via-white to-purple-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
-      <div className="w-full max-w-md p-8 rounded-3xl shadow-2xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800">
+    <div className="min-h-screen flex items-center justify-center bg-twitter-background">
+      <div className="w-full max-w-md p-8 rounded-3xl shadow-2xl bg-twitter-surface border border-twitter-border">
         <div className="flex flex-col items-center mb-8">
-          <a href="/main" className="flex items-center gap-2 text-3xl font-extrabold text-blue-700 dark:text-blue-300 tracking-tight">
-            <svg width="36" height="36" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="text-blue-500 dark:text-blue-400"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" /></svg>
+          <a href="/main" className="flex items-center gap-2 text-3xl font-extrabold text-twitter-primary tracking-tight hover:text-twitter-primary/80 transition-colors">
+            <svg width="36" height="36" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="text-twitter-primary">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+            </svg>
             #100DaysOf__
           </a>
-          <h1 className="mt-4 text-2xl font-bold text-gray-900 dark:text-white">Sign in to your account</h1>
-          <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">Welcome back! Please enter your details.</p>
+          <h1 className="mt-4 text-2xl font-bold text-twitter-text">Sign in to your account</h1>
+          <p className="text-twitter-textSecondary text-sm mt-1">Welcome back! Please enter your details.</p>
         </div>
         <form className="space-y-6" onSubmit={handleSubmit}>
           <div>
-            <label htmlFor="email" className="block mb-2 text-sm font-semibold text-gray-700 dark:text-gray-200">Email</label>
+            <label htmlFor="email" className="block mb-2 text-sm font-semibold text-twitter-text">Email</label>
             <input
               type="email"
               name="email"
               id="email"
-              className="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-400 focus:outline-none transition"
+              className="w-full px-4 py-3 rounded-xl border border-twitter-border bg-twitter-backgroundSecondary text-twitter-text placeholder-twitter-textSecondary focus:ring-2 focus:ring-twitter-primary focus:border-twitter-primary focus:outline-none transition-all"
               placeholder="you@email.com"
               value={formData.email}
               onChange={handleChange}
@@ -80,12 +82,12 @@ const Signin = () => {
             />
           </div>
           <div>
-            <label htmlFor="password" className="block mb-2 text-sm font-semibold text-gray-700 dark:text-gray-200">Password</label>
+            <label htmlFor="password" className="block mb-2 text-sm font-semibold text-twitter-text">Password</label>
             <input
               type="password"
               name="password"
               id="password"
-              className="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-400 focus:outline-none transition"
+              className="w-full px-4 py-3 rounded-xl border border-twitter-border bg-twitter-backgroundSecondary text-twitter-text placeholder-twitter-textSecondary focus:ring-2 focus:ring-twitter-primary focus:border-twitter-primary focus:outline-none transition-all"
               placeholder="********"
               value={formData.password}
               onChange={handleChange}
@@ -94,18 +96,22 @@ const Signin = () => {
             />
           </div>
           <div className="flex items-center justify-between">
-            <a href="/request-reset-password" className="text-sm text-blue-600 dark:text-blue-400 hover:underline">Forgot password?</a>
+            <a href="/request-reset-password" className="text-sm text-twitter-primary hover:text-twitter-primary/80 hover:underline transition-colors">
+              Forgot password?
+            </a>
           </div>
           <button
             type="submit"
-            className="w-full py-3 mt-2 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-bold rounded-xl shadow-lg transition focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="w-full py-3 mt-2 bg-twitter-primary hover:bg-twitter-primary/90 text-white font-bold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-twitter-primary/50"
           >
             Sign In
           </button>
         </form>
         <div className="mt-8 text-center">
-          <span className="text-gray-500 dark:text-gray-400 text-sm">Don't have an account? </span>
-          <a href="/signup" className="text-blue-600 dark:text-blue-400 font-semibold hover:underline">Register here</a>
+          <span className="text-twitter-textSecondary text-sm">Don't have an account? </span>
+          <a href="/signup" className="text-twitter-primary font-semibold hover:text-twitter-primary/80 hover:underline transition-colors">
+            Register here
+          </a>
         </div>
       </div>
     </div>

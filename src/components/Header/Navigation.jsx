@@ -60,11 +60,11 @@ const Navigation = () => {
       }
     }
     return (
-        <div className="bg-gradient-to-br from-indigo-100 via-purple-50 to-pink-100 border-b border-white/30 shadow-lg backdrop-blur-sm sticky top-0 z-40">
-        <header className="flex justify-between items-center px-6 max-w-6xl mx-auto py-4">
+  <div className="bg-twitter-background border-b border-twitter-border shadow-lg sticky top-0 z-40">
+  <header className="flex justify-between items-center px-6 max-w-6xl mx-auto py-4">
           <div>
             <span
-              className="text-3xl font-extrabold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent tracking-tight cursor-pointer select-none hover:scale-105 transition-transform"
+              className="text-3xl font-extrabold text-twitter-primary tracking-tight cursor-pointer select-none hover:scale-105 transition-transform"
               onClick={() => navigate("/")}
             >
               #100DaysOf__
@@ -77,15 +77,15 @@ const Navigation = () => {
                 type="text"
                 placeholder="Search users, posts..."
                 onChange={handleChange}
-                className="px-4 py-2 bg-white/70 backdrop-blur-sm border border-white/30 rounded-full text-gray-700 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all w-64"
+                className="px-4 py-2 bg-twitter-surface border border-twitter-border rounded-full text-twitter-text placeholder-twitter-textSecondary focus:outline-none focus:ring-2 focus:ring-twitter-primary focus:border-twitter-primary transition-all w-64"
               />
               <button 
                 type='submit' 
                 disabled={!query.trim()}
                 className={`px-6 py-2 rounded-full font-medium transition-all duration-200 shadow-lg hover:shadow-xl ${
                   query.trim() 
-                    ? 'bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white' 
-                    : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                    ? 'bg-twitter-primary text-white hover:bg-twitter-primary/90' 
+                    : 'bg-twitter-border text-twitter-textSecondary cursor-not-allowed'
                 }`}
               >
                 Search
@@ -98,8 +98,8 @@ const Navigation = () => {
               <li
                 className={`cursor-pointer py-2 px-4 text-sm font-semibold rounded-full transition-all duration-200 ${
                   pathMatchRoute("/") 
-                    ? "bg-white/70 text-purple-700 shadow-md backdrop-blur-sm" 
-                    : "text-gray-600 hover:text-purple-600 hover:bg-white/30"
+                    ? "bg-twitter-surface text-twitter-primary shadow-md" 
+                    : "text-twitter-textSecondary hover:text-twitter-primary hover:bg-twitter-surface/70"
                 }`}
                 onClick={() => navigate("/")}
               >
@@ -108,36 +108,35 @@ const Navigation = () => {
               <li
                 className={`cursor-pointer py-2 px-4 text-sm font-semibold rounded-full transition-all duration-200 ${
                   pathMatchRoute("/friends") 
-                    ? "bg-white/70 text-purple-700 shadow-md backdrop-blur-sm" 
-                    : "text-gray-600 hover:text-purple-600 hover:bg-white/30"
+                    ? "bg-twitter-surface text-twitter-primary shadow-md" 
+                    : "text-twitter-textSecondary hover:text-twitter-primary hover:bg-twitter-surface/70"
                 }`}
                 onClick={() => navigate("/friends")}
               >
                 👥 Friends
               </li>
-              
               {
                 id !== "" ?
                 <li
                   className={`cursor-pointer p-1 rounded-full transition-all duration-200 ${
                     pathMatchRoute(`/profile/${id}`) 
-                      ? "ring-2 ring-purple-500 shadow-lg" 
-                      : "hover:ring-2 hover:ring-purple-300"
+                      ? "ring-2 ring-twitter-primary shadow-lg" 
+                      : "hover:ring-2 hover:ring-twitter-primary/50"
                   }`}
                   onClick={() => navigate(`/profile/${id}`)}
                 >
                   <img 
                     src={userDetail.avatar ? `http://localhost:8000${userDetail.avatar}` : userDetail.get_avatar} 
                     alt="Profile" 
-                    className="w-10 h-10 rounded-full object-cover border-2 border-white shadow-md"
+                    className="w-10 h-10 rounded-full object-cover border-2 border-twitter-border shadow-md"
                   />
                 </li>
                 :
                 <li
                   className={`cursor-pointer py-2 px-4 text-sm font-semibold rounded-full transition-all duration-200 ${
                     pathMatchRoute("/signin") 
-                      ? "bg-white/70 text-purple-700 shadow-md backdrop-blur-sm" 
-                      : "text-gray-600 hover:text-purple-600 hover:bg-white/30"
+                      ? "bg-twitter-surface text-twitter-primary shadow-md" 
+                      : "text-twitter-textSecondary hover:text-twitter-primary hover:bg-twitter-surface/70"
                   }`}
                   onClick={() => navigate("/signin")}
                 >

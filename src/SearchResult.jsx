@@ -24,33 +24,79 @@ function SearchResult() {
     }, [query]); // Use query as the dependency
 
         return (
-            <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-100 py-10 px-4 flex flex-col items-center">
+            <div className="min-h-screen bg-twitter-background py-10 px-4 flex flex-col items-center">
                 <div className="w-full max-w-5xl">
-                    <h1 className="text-3xl font-bold text-gray-800 mb-6 border-b-4 border-blue-200 pb-2">Profiles</h1>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-                        {result.users.length === 0 ? (
-                            <div className="col-span-2 text-gray-400 text-center">No users found</div>
-                        ) : (
-                            result.users.map((friend) => (
-                                <div key={friend.id} className="bg-white rounded-2xl shadow p-6 flex items-center gap-4 hover:shadow-lg transition">
-                                    <Friends friend={friend} />
-                                </div>
-                            ))
-                        )}
+                    {/* Search Query Header */}
+                    <div className="text-center mb-8">
+                        <h1 className="text-4xl font-bold text-twitter-primary mb-2">Search Results</h1>
+                        <p className="text-twitter-textSecondary">Results for: <span className="text-twitter-text font-semibold">"{query}"</span></p>
                     </div>
 
-                    <h1 className="text-3xl font-bold text-gray-800 mb-6 border-b-4 border-purple-200 pb-2">Posts</h1>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        {result.posts.length === 0 ? (
-                            <div className="col-span-2 text-gray-400 text-center">No posts found</div>
-                        ) : (
-                            result.posts.map((post) => (
-                                <div key={post.id} className="bg-white rounded-2xl shadow p-6 hover:shadow-lg transition">
-                                    <Post id={post.id} />
+                    {/* Profiles Section */}
+                    <div className="mb-12">
+                        <h2 className="text-2xl font-bold text-twitter-text mb-6 flex items-center border-b border-twitter-border pb-3">
+                            <span className="mr-3">👥</span>
+                            Profiles
+                        </h2>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            {result.users.length === 0 ? (
+                                <div className="col-span-2 text-center py-12">
+                                    <div className="text-6xl mb-4">🔍</div>
+                                    <p className="text-twitter-textSecondary text-lg">No users found</p>
+                                    <p className="text-twitter-textSecondary text-sm mt-2">Try searching with different keywords</p>
                                 </div>
-                            ))
-                        )}
+                            ) : (
+                                result.users.map((friend) => (
+                                    <div key={friend.id} className="bg-twitter-surface rounded-2xl border border-twitter-border shadow-lg p-6 flex items-center gap-4 hover:border-twitter-primary/30 hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+                                        <Friends friend={friend} />
+                                    </div>
+                                ))
+                            )}
+                        </div>
                     </div>
+
+                    {/* Posts Section */}
+                    <div>
+                        <h2 className="text-2xl font-bold text-twitter-text mb-6 flex items-center border-b border-twitter-border pb-3">
+                            <span className="mr-3">📝</span>
+                            Posts
+                        </h2>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            {result.posts.length === 0 ? (
+                                <div className="col-span-2 text-center py-12">
+                                    <div className="text-6xl mb-4">📄</div>
+                                    <p className="text-twitter-textSecondary text-lg">No posts found</p>
+                                    <p className="text-twitter-textSecondary text-sm mt-2">Try searching with different keywords</p>
+                                </div>
+                            ) : (
+                                result.posts.map((post) => (
+                                    <div key={post.id} className="bg-twitter-surface rounded-2xl border border-twitter-border shadow-lg p-6 hover:border-twitter-primary/30 hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+                                        <Post id={post.id} />
+                                    </div>
+                                ))
+                            )}
+                        </div>
+                    </div>
+
+                    {/* No Results Found */}
+                    {result.users.length === 0 && result.posts.length === 0 && (
+                        <div className="text-center py-16">
+                            <div className="text-8xl mb-6">🔍</div>
+                            <h3 className="text-2xl font-bold text-twitter-text mb-4">No results found</h3>
+                            <p className="text-twitter-textSecondary mb-6">
+                                We couldn't find anything matching "<span className="text-twitter-text font-semibold">{query}</span>"
+                            </p>
+                            <div className="bg-twitter-surface rounded-2xl border border-twitter-border p-6 max-w-md mx-auto">
+                                <h4 className="font-semibold text-twitter-text mb-3">Try these suggestions:</h4>
+                                <ul className="text-sm text-twitter-textSecondary space-y-2 text-left">
+                                    <li>• Check your spelling</li>
+                                    <li>• Try different keywords</li>
+                                    <li>• Use more general terms</li>
+                                    <li>• Search for usernames or hashtags</li>
+                                </ul>
+                            </div>
+                        </div>
+                    )}
                 </div>
             </div>
         );

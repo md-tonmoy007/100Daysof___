@@ -44,51 +44,57 @@ const PasswordReset = () => {
   };
 
   return (
-    <div>
-     <section className="bg-gray-50 dark:bg-gray-900 mb-auto">
-  <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-    <a
-      href="/main"
-      className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white"
-    >
-      #100DaysOf__
-    </a>
-    <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-      <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-        <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
-        
-          <div>
-            <label
-              htmlFor="email"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >
-              Your email
-            </label>
-            <input
-              type="email"
-              name="email"
-              id="email"
-              className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="name@company.com"
-              value={formData.email} onChange={handleChange} required
-            />
-          </div>
-
-          
-
-          <button
-            type="submit"
-            className="w-full text-white bg-blue-500 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+    <div className="min-h-screen bg-twitter-background">
+      <section className="bg-twitter-background">
+        <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+          <a
+            href="/main"
+            className="flex items-center mb-6 text-3xl font-extrabold text-twitter-primary tracking-tight hover:text-twitter-primary/80 transition-colors"
           >
-            Reset Password
-          </button>
+            #100DaysOf__
+          </a>
+          <div className="w-full bg-twitter-surface rounded-3xl shadow-2xl border border-twitter-border md:mt-0 sm:max-w-md xl:p-0">
+            <div className="p-8 space-y-6">
+              <div className="text-center">
+                <h1 className="text-2xl font-bold text-twitter-text mb-2">Reset your password</h1>
+                <p className="text-twitter-textSecondary text-sm">Enter your email address and we'll send you a link to reset your password.</p>
+              </div>
+              <form className="space-y-6" onSubmit={handleSubmit}>
+                <div>
+                  <label
+                    htmlFor="email"
+                    className="block mb-2 text-sm font-semibold text-twitter-text"
+                  >
+                    Your email
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    id="email"
+                    className="w-full px-4 py-3 rounded-xl border border-twitter-border bg-twitter-backgroundSecondary text-twitter-text placeholder-twitter-textSecondary focus:ring-2 focus:ring-twitter-primary focus:border-twitter-primary focus:outline-none transition-all"
+                    placeholder="name@company.com"
+                    value={formData.email} 
+                    onChange={handleChange} 
+                    required
+                  />
+                </div>
 
-        </form>
-      </div>
-    </div>
-  </div>
-  
-</section>
+                <button
+                  type="submit"
+                  className="w-full py-3 mt-2 bg-twitter-primary hover:bg-twitter-primary/90 text-white font-bold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-twitter-primary/50"
+                >
+                  Send reset link
+                </button>
+              </form>
+              <div className="text-center">
+                <a href="/signin" className="text-sm text-twitter-primary hover:text-twitter-primary/80 hover:underline transition-colors">
+                  Back to sign in
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };
