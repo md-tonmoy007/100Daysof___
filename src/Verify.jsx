@@ -85,7 +85,7 @@ function Verify() {
               <div className="pt-4">
                 <a 
                   href="/signin"
-                  className="inline-flex items-center px-6 py-3 bg-twitter-primary hover:bg-twitter-primary/90 text-white font-bold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-twitter-primary/50"
+                  className="inline-flex items-center px-6 py-3 bg-twitter-primary hover:bg-twitter-primary/90 text-white font-bold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-twitter-primary/50"
                 >
                   Continue to Sign In
                 </a>

@@ -64,7 +64,7 @@ const Navigation = () => {
   <header className="flex justify-between items-center px-6 max-w-6xl mx-auto py-4">
           <div>
             <span
-              className="text-3xl font-extrabold text-twitter-primary tracking-tight cursor-pointer select-none hover:scale-105 transition-transform"
+              className="text-3xl font-extrabold text-twitter-primary tracking-tight cursor-pointer select-none transition-transform"
               onClick={() => navigate("/")}
             >
               #100DaysOf__

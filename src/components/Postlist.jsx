@@ -151,17 +151,17 @@ const Postlist = () => {
             <div className="space-y-6">
                 {/* Loading skeleton */}
                 {[1, 2, 3].map((i) => (
-                    <div key={i} className="bg-white/60 backdrop-blur-sm rounded-2xl p-6 border border-white/30 animate-pulse">
+                    <div key={i} className="bg-twitter-surface border border-twitter-border rounded-2xl p-6">
                         <div className="flex items-center space-x-4 mb-4">
-                            <div className="w-12 h-12 bg-gray-300 rounded-full"></div>
+                            <div className="w-12 h-12 bg-twitter-border rounded-full"></div>
                             <div className="space-y-2">
-                                <div className="h-4 bg-gray-300 rounded w-32"></div>
-                                <div className="h-3 bg-gray-300 rounded w-24"></div>
+                                <div className="h-4 bg-twitter-border rounded w-32"></div>
+                                <div className="h-3 bg-twitter-border rounded w-24"></div>
                             </div>
                         </div>
                         <div className="space-y-2">
-                            <div className="h-4 bg-gray-300 rounded w-full"></div>
-                            <div className="h-4 bg-gray-300 rounded w-3/4"></div>
+                            <div className="h-4 bg-twitter-border rounded w-full"></div>
+                            <div className="h-4 bg-twitter-border rounded w-3/4"></div>
                         </div>
                     </div>
                 ))}
@@ -172,13 +172,13 @@ const Postlist = () => {
     if (error) {
         return (
             <div className="text-center py-12">
-                <div className="bg-red-50/80 backdrop-blur-sm border border-red-200 rounded-2xl p-8 max-w-md mx-auto">
+                <div className="bg-twitter-surface border border-twitter-border rounded-2xl p-8 max-w-md mx-auto">
                     <div className="text-red-500 text-5xl mb-4">⚠️</div>
-                    <h3 className="text-lg font-semibold text-red-800 mb-2">Oops! Something went wrong</h3>
-                    <p className="text-red-600 mb-4">{error}</p>
+                    <h3 className="text-lg font-semibold text-red-400 mb-2">Oops! Something went wrong</h3>
+                    <p className="text-twitter-textSecondary mb-4">{error}</p>
                     <button 
                         onClick={() => window.location.reload()} 
-                        className="bg-gradient-to-r from-red-500 to-pink-500 text-white px-6 py-2 rounded-full font-medium hover:from-red-600 hover:to-pink-600 transition-all duration-200 shadow-lg"
+                        className="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-full font-medium transition-all duration-200 shadow-lg"
                     >
                         Try Again
                     </button>
@@ -190,13 +190,13 @@ const Postlist = () => {
     if (posts.length === 0) {
         return (
             <div className="text-center py-16">
-                <div className="bg-white/60 backdrop-blur-sm rounded-3xl p-12 border border-white/30 max-w-md mx-auto">
+                <div className="bg-twitter-surface border border-twitter-border rounded-3xl p-12 max-w-md mx-auto">
                     <div className="text-6xl mb-6">📝</div>
-                    <h3 className="text-2xl font-bold text-gray-800 mb-4">No Posts Yet</h3>
-                    <p className="text-gray-600 mb-6">Be the first to share something amazing! Create your first post and start connecting with others.</p>
+                    <h3 className="text-2xl font-bold text-twitter-text mb-4">No Posts Yet</h3>
+                    <p className="text-twitter-textSecondary mb-6">Be the first to share something amazing! Create your first post and start connecting with others.</p>
                     <button 
                         onClick={() => document.querySelector('textarea')?.focus()} 
-                        className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-8 py-3 rounded-full font-semibold hover:from-purple-600 hover:to-pink-600 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105"
+                        className="bg-twitter-primary hover:bg-twitter-primary/90 text-white px-8 py-3 rounded-full font-semibold transition-all duration-200 shadow-lg"
                     >
                         Create Your First Post
                     </button>
@@ -210,13 +210,13 @@ const Postlist = () => {
             {/* Posts count indicator */}
             <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-3">
-                    <div className="w-2 h-2 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full animate-pulse"></div>
-                    <span className="text-sm font-medium text-gray-600">
+                    <div className="w-2 h-2 bg-twitter-primary rounded-full"></div>
+                    <span className="text-sm font-medium text-twitter-textSecondary">
                         {posts.length} {posts.length === 1 ? 'Post' : 'Posts'} Available
                     </span>
                 </div>
-                <div className="flex items-center gap-2 text-xs text-gray-500">
-                    <div className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></div>
+                <div className="flex items-center gap-2 text-xs text-twitter-textSecondary">
+                    <div className="w-1.5 h-1.5 bg-green-400 rounded-full"></div>
                     Live Feed
                 </div>
             </div>
@@ -229,10 +229,6 @@ const Postlist = () => {
                         <div 
                             key={post.id}
                             ref={isLastPost ? setLastPostRef : null}
-                            style={{
-                                animationDelay: `${(index % POSTS_PER_PAGE) * 0.1}s`,
-                                animation: 'fadeInUp 0.6s ease-out forwards'
-                            }}
                         >
                             <Post key={post.id} id={post.id}/>
                         </div>
@@ -243,10 +239,10 @@ const Postlist = () => {
             {/* Loading more indicator */}
             {loadingMore && (
                 <div className="flex justify-center py-8">
-                    <div className="bg-white/60 backdrop-blur-sm rounded-2xl p-6 border border-white/30 shadow-lg">
+                    <div className="bg-twitter-surface border border-twitter-border rounded-2xl p-6 shadow-lg">
                         <div className="flex items-center gap-4">
-                            <div className="w-8 h-8 border-3 border-purple-500/30 border-t-purple-500 rounded-full animate-spin"></div>
-                            <div className="text-gray-700 font-medium">Loading more amazing posts...</div>
+                            <div className="w-8 h-8 border-3 border-twitter-primary/30 border-t-twitter-primary rounded-full animate-spin"></div>
+                            <div className="text-twitter-text font-medium">Loading more amazing posts...</div>
                         </div>
                     </div>
                 </div>
@@ -257,7 +253,7 @@ const Postlist = () => {
                 <div className="text-center py-8">
                     <button 
                         onClick={handleLoadMore}
-                        className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-8 py-3 rounded-full font-semibold hover:from-purple-600 hover:to-pink-600 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105"
+                        className="bg-twitter-primary hover:bg-twitter-primary/90 text-white px-8 py-3 rounded-full font-semibold transition-all duration-200 shadow-lg"
                     >
                         📄 Load More Posts
                     </button>
@@ -267,10 +263,10 @@ const Postlist = () => {
             {/* End of content indicator */}
             {!hasMore && posts.length > 0 && (
                 <div className="text-center py-8">
-                    <div className="inline-flex items-center gap-3 text-gray-500 text-sm bg-white/40 backdrop-blur-sm rounded-full px-6 py-3 border border-white/30">
-                        <div className="w-2 h-2 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full"></div>
+                    <div className="inline-flex items-center gap-3 text-twitter-textSecondary text-sm bg-twitter-surface border border-twitter-border rounded-full px-6 py-3">
+                        <div className="w-2 h-2 bg-twitter-primary rounded-full"></div>
                         <span>🎉 You've seen all posts! You're all caught up!</span>
-                        <div className="w-2 h-2 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full"></div>
+                        <div className="w-2 h-2 bg-twitter-primary rounded-full"></div>
                     </div>
                 </div>
             )}
@@ -278,13 +274,13 @@ const Postlist = () => {
             {/* Error state for loading more */}
             {error && !loading && posts.length > 0 && (
                 <div className="text-center py-8">
-                    <div className="bg-red-50/80 backdrop-blur-sm border border-red-200 rounded-2xl p-6 max-w-md mx-auto">
+                    <div className="bg-twitter-surface border border-twitter-border rounded-2xl p-6 max-w-md mx-auto">
                         <div className="text-red-500 text-3xl mb-3">⚠️</div>
-                        <h4 className="text-lg font-semibold text-red-800 mb-2">Couldn't load more posts</h4>
-                        <p className="text-red-600 mb-4 text-sm">{error}</p>
+                        <h4 className="text-lg font-semibold text-red-400 mb-2">Couldn't load more posts</h4>
+                        <p className="text-twitter-textSecondary mb-4 text-sm">{error}</p>
                         <button 
                             onClick={handleLoadMore}
-                            className="bg-gradient-to-r from-red-500 to-pink-500 text-white px-6 py-2 rounded-full font-medium hover:from-red-600 hover:to-pink-600 transition-all duration-200 shadow-lg"
+                            className="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-full font-medium transition-all duration-200 shadow-lg"
                         >
                             Try Again
                         </button>

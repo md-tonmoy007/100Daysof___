@@ -276,14 +276,14 @@ function Postcreate() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div
                   onClick={() => handlePostTypeChange('regular')}
-                  className={`group cursor-pointer p-6 rounded-2xl border-2 transition-all duration-300 hover:scale-105 ${
+                  className={`group cursor-pointer p-6 rounded-2xl border-2 transition-all duration-300 ${
                     postType === 'regular'
                       ? 'border-twitter-primary bg-twitter-backgroundSecondary shadow-lg'
                       : 'border-twitter-border bg-twitter-surface hover:border-twitter-primary/50'
                   }`}
                 >
                   <div className="text-center">
-                    <div className="text-4xl mb-3 group-hover:scale-110 transition-transform">📝</div>
+                    <div className="text-4xl mb-3 transition-transform">📝</div>
                     <h4 className="font-bold text-lg text-twitter-text mb-2">Regular Post</h4>
                     <p className="text-sm text-twitter-textSecondary">Share your thoughts, ideas, or daily updates</p>
                   </div>
@@ -291,14 +291,14 @@ function Postcreate() {
                 
                 <div
                   onClick={() => handlePostTypeChange('existing-thread')}
-                  className={`group cursor-pointer p-6 rounded-2xl border-2 transition-all duration-300 hover:scale-105 ${
+                  className={`group cursor-pointer p-6 rounded-2xl border-2 transition-all duration-300 ${
                     postType === 'existing-thread'
                       ? 'border-twitter-primary bg-twitter-backgroundSecondary shadow-lg'
                       : 'border-twitter-border bg-twitter-surface hover:border-twitter-primary/50'
                   }`}
                 >
                   <div className="text-center">
-                    <div className="text-4xl mb-3 group-hover:scale-110 transition-transform">🧵</div>
+                    <div className="text-4xl mb-3 transition-transform">🧵</div>
                     <h4 className="font-bold text-lg text-twitter-text mb-2">Join Thread</h4>
                     <p className="text-sm text-twitter-textSecondary">Continue your 100-day challenge journey</p>
                   </div>
@@ -306,14 +306,14 @@ function Postcreate() {
                 
                 <div
                   onClick={() => handlePostTypeChange('new-thread')}
-                  className={`group cursor-pointer p-6 rounded-2xl border-2 transition-all duration-300 hover:scale-105 ${
+                  className={`group cursor-pointer p-6 rounded-2xl border-2 transition-all duration-300 ${
                     postType === 'new-thread'
                       ? 'border-twitter-primary bg-twitter-backgroundSecondary shadow-lg'
                       : 'border-twitter-border bg-twitter-surface hover:border-twitter-primary/50'
                   }`}
                 >
                   <div className="text-center">
-                    <div className="text-4xl mb-3 group-hover:scale-110 transition-transform">✨</div>
+                    <div className="text-4xl mb-3 transition-transform">✨</div>
                     <h4 className="font-bold text-lg text-twitter-text mb-2">New Thread</h4>
                     <p className="text-sm text-twitter-textSecondary">Start a fresh 100-day challenge</p>
                   </div>
@@ -408,7 +408,7 @@ function Postcreate() {
                                   type="button"
                                   onClick={() => joinExistingThread(thread.id)}
                                   disabled={joiningThreadId === thread.id}
-                                  className={`ml-4 px-4 py-2 text-white rounded-lg font-medium shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 ${
+                                  className={`ml-4 px-4 py-2 text-white rounded-lg font-medium shadow-lg hover:shadow-xl transition-all duration-300 ${
                                     joiningThreadId === thread.id
                                       ? 'bg-twitter-border cursor-not-allowed'
                                       : 'bg-twitter-primary hover:bg-twitter-primary/90'
@@ -551,7 +551,7 @@ function Postcreate() {
             <div className="text-center">
               <button 
                 type="submit" 
-                className="group px-12 py-4 bg-twitter-primary hover:bg-twitter-primary/90 text-white font-bold text-lg rounded-2xl shadow-2xl hover:shadow-twitter-primary/25 transform hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-twitter-primary/50"
+                className="group px-12 py-4 bg-twitter-primary hover:bg-twitter-primary/90 text-white font-bold text-lg rounded-2xl shadow-2xl hover:shadow-twitter-primary/25 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-twitter-primary/50"
               >
                 <span className="flex items-center justify-center space-x-3">
                   <span>{postType === 'new-thread' ? '🚀' : '📝'}</span>

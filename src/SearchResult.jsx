@@ -47,7 +47,7 @@ function SearchResult() {
                                 </div>
                             ) : (
                                 result.users.map((friend) => (
-                                    <div key={friend.id} className="bg-twitter-surface rounded-2xl border border-twitter-border shadow-lg p-6 flex items-center gap-4 hover:border-twitter-primary/30 hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+                                    <div key={friend.id} className="bg-twitter-surface rounded-2xl border border-twitter-border shadow-lg p-6 flex items-center gap-4 hover:border-twitter-primary/30 hover:shadow-xl transition-all duration-300">
                                         <Friends friend={friend} />
                                     </div>
                                 ))
@@ -70,7 +70,7 @@ function SearchResult() {
                                 </div>
                             ) : (
                                 result.posts.map((post) => (
-                                    <div key={post.id} className="bg-twitter-surface rounded-2xl border border-twitter-border shadow-lg p-6 hover:border-twitter-primary/30 hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+                                    <div key={post.id} className="bg-twitter-surface rounded-2xl border border-twitter-border shadow-lg p-6 hover:border-twitter-primary/30 hover:shadow-xl transition-all duration-300">
                                         <Post id={post.id} />
                                     </div>
                                 ))

@@ -50,11 +50,7 @@ const MainPage = () => {
         </div>
       </div>
 
-  {/* Floating decoration elements */}
-  <div className="fixed top-20 left-10 w-20 h-20 bg-twitter-primary rounded-full opacity-10 animate-pulse"></div>
-  <div className="fixed top-40 right-16 w-16 h-16 bg-twitter-surface rounded-full opacity-10 animate-pulse" style={{animationDelay: '1s'}}></div>
-  <div className="fixed bottom-32 left-20 w-12 h-12 bg-twitter-border rounded-full opacity-10 animate-pulse" style={{animationDelay: '2s'}}></div>
-  <div className="fixed bottom-40 right-10 w-24 h-24 bg-twitter-backgroundSecondary rounded-full opacity-10 animate-pulse" style={{animationDelay: '0.5s'}}></div>
+  {/* Simple clean Twitter-style layout */}
     </div>
   );
 };
