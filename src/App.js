@@ -15,6 +15,7 @@ import Navigation from "./components/Header/Navigation";
 import RequestLists from "./components/Friends/RequestLists";
 import FullPostPage from "./posts/FullPostPage";
 import SearchResult from "./SearchResult";
+import ThreadDetailPage from "./threads/ThreadDetailPage";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
           <Route path="/posts/create" element={<CreatePost/>}/>
           <Route path="/friends" element={<RequestLists/>}/>
           <Route path="/posts/details/:postId" element={<FullPostPage/>}/>
+          <Route path="/threads/:threadId" element={<ThreadDetailPage/>}/>
           <Route path="/search/:query" element={<SearchResult/>}/>
           <Route path="*" element={<h1>404 not found</h1>}/>
         </Routes>
