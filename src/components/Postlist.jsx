@@ -39,41 +39,24 @@ const Postlist = () => {
 
             console.log('Posts response:', response.data);
             
-            // Handle different API response formats
-            let newPosts = [];
-            let totalCount = 0;
+            // Handle the new paginated API response format
+            const { posts: newPosts, pagination } = response.data;
             
-            if (Array.isArray(response.data)) {
-                // If API returns array directly
-                newPosts = response.data;
-                setHasMore(newPosts.length === POSTS_PER_PAGE);
-            } else if (response.data.results) {
-                // If API returns paginated format
-                newPosts = response.data.results;
-                totalCount = response.data.count;
-                setHasMore(response.data.next !== null);
-            } else if (response.data.posts) {
-                // If API returns posts in posts field
-                newPosts = response.data.posts;
-                totalCount = response.data.total || newPosts.length;
-                setHasMore(pageNum * POSTS_PER_PAGE < totalCount);
+            if (isInitial) {
+                setPosts(newPosts || []);
             } else {
-                newPosts = [];
-                setHasMore(false);
+                setPosts(prevPosts => [...prevPosts, ...(newPosts || [])]);
             }
 
-            if (isInitial) {
-                setPosts(newPosts);
+            // Update pagination state
+            if (pagination) {
+                setHasMore(pagination.has_next);
             } else {
-                setPosts(prevPosts => [...prevPosts, ...newPosts]);
+                // Fallback if pagination info is missing
+                setHasMore((newPosts || []).length === POSTS_PER_PAGE);
             }
 
             setAccessToken(localStorage.getItem('accessToken'));
-
-            // If we got fewer posts than requested, we've reached the end
-            if (newPosts.length < POSTS_PER_PAGE) {
-                setHasMore(false);
-            }
 
         } catch (err) {
             console.error('Error loading posts:', err);
@@ -82,7 +65,7 @@ const Postlist = () => {
             } else {
                 setError("Failed to load more posts.");
                 // Revert page number on error
-                setPage(prev => prev - 1);
+                setPage(prev => Math.max(prev - 1, 1));
             }
         } finally {
             if (isInitial) {

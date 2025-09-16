@@ -223,12 +223,12 @@ function Postcreate() {
 
       if (threadId && userThreadId && dayNumber) {
         postData.thread = threadId;
-        postData.user_thread = userThreadId;
+        postData.user_thread_id = userThreadId;
         postData.day_number = parseInt(dayNumber);
       }
 
       // Create the post
-      await axios.post('http://localhost:8000/api/posts/post_create/', postData, {
+      await axios.post('http://localhost:8000/api/posts/create/', postData, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
           'Content-Type': 'application/json',

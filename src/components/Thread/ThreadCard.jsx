@@ -6,7 +6,7 @@ function ThreadCard({ userThread, isMyProfile }) {
   
   return (
     <Link 
-      to={`/threads/${userThread.thread.id}`} 
+      to={`/threads/${userThread.thread.id}?user_id=${userThread.user.id}`} 
       className="block group h-full"
     >
       <div className="bg-twitter-backgroundSecondary border border-twitter-border rounded-xl shadow p-6 hover:shadow-xl transition-all duration-300 hover:scale-105 group-hover:bg-twitter-surface relative overflow-hidden h-full flex flex-col">

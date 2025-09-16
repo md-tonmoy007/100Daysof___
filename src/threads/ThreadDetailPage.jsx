@@ -1,22 +1,29 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useSearchParams } from 'react-router-dom';
 import axios from 'axios';
 
 function ThreadDetailPage() {
   const { threadId } = useParams();
+  const [searchParams] = useSearchParams();
+  const userId = searchParams.get('user_id');
   const [threadData, setThreadData] = useState(null);
   const [posts, setPosts] = useState([]);
   const [userThread, setUserThread] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [filteredByUser, setFilteredByUser] = useState(false);
 
   useEffect(() => {
     fetchThreadDetails();
-  }, [threadId]);
+  }, [threadId, userId]);
 
   const fetchThreadDetails = async () => {
     try {
-      const response = await axios.get(`http://localhost:8000/api/posts/threads/${threadId}/`, {
+      const url = userId 
+        ? `http://localhost:8000/api/posts/threads/${threadId}/?user_id=${userId}`
+        : `http://localhost:8000/api/posts/threads/${threadId}/`;
+        
+      const response = await axios.get(url, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
@@ -24,6 +31,7 @@ function ThreadDetailPage() {
       setThreadData(response.data.thread);
       setPosts(response.data.posts);
       setUserThread(response.data.user_thread);
+      setFilteredByUser(response.data.filtered_by_user || false);
       setLoading(false);
     } catch (error) {
       console.error('Error fetching thread details:', error);
@@ -158,8 +166,23 @@ function ThreadDetailPage() {
         <div className="bg-twitter-surface border border-twitter-border rounded-3xl p-8">
           <div className="flex items-center gap-3 mb-6">
             <div className="w-3 h-3 bg-twitter-primary rounded-full animate-pulse"></div>
-            <h2 className="text-2xl font-semibold text-twitter-text">Thread Posts</h2>
-            <div className="ml-auto">
+            <h2 className="text-2xl font-semibold text-twitter-text">
+              {filteredByUser ? 'User Posts' : 'Thread Posts'}
+            </h2>
+            <div className="ml-auto flex items-center gap-2">
+              {filteredByUser && (
+                <Link 
+                  to={`/threads/${threadId}`}
+                  className="text-xs text-twitter-primary hover:text-twitter-primary/80 bg-twitter-primary/10 hover:bg-twitter-primary/20 px-3 py-1 rounded-full transition-colors duration-200 flex items-center gap-1"
+                >
+                  👥 View all posts
+                </Link>
+              )}
+              {filteredByUser && (
+                <span className="text-xs text-twitter-textSecondary bg-twitter-primary/10 text-twitter-primary px-2 py-1 rounded-full">
+                  👤 Filtered by user
+                </span>
+              )}
               <span className="text-sm text-twitter-textSecondary bg-twitter-border px-3 py-1 rounded-full">
                 {posts.length} {posts.length === 1 ? 'post' : 'posts'}
               </span>
@@ -168,9 +191,15 @@ function ThreadDetailPage() {
 
           {posts.length > 0 ? (
             <div className="space-y-4">
-              <div className="mb-4 text-sm text-twitter-textSecondary bg-twitter-backgroundSecondary border border-twitter-border rounded-lg p-3">
-                📅 Posts are sorted from Day 1 to the latest day
-              </div>
+              {filteredByUser ? (
+                <div className="mb-4 text-sm text-twitter-textSecondary bg-twitter-backgroundSecondary border border-twitter-border rounded-lg p-3">
+                  👤 Showing posts by {posts[0]?.created_by?.name} only, sorted from Day 1 to the latest day
+                </div>
+              ) : (
+                <div className="mb-4 text-sm text-twitter-textSecondary bg-twitter-backgroundSecondary border border-twitter-border rounded-lg p-3">
+                  📅 Posts are sorted from Day 1 to the latest day
+                </div>
+              )}
               {posts.map((post, index) => (
                 <Link 
                   key={post.id} 
